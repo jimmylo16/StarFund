@@ -2,13 +2,17 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+// import { EventsModule } from './modules/Events/events.module';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { FightersModule } from './modules/fighters/fighters.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    GraphQLModule.forRoot({
+    GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: './schema.gql',
-      debug: true,
+      // debug: true,
       playground: true,
+      driver: ApolloDriver,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -20,6 +24,8 @@ import { GraphQLModule } from '@nestjs/graphql';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    // EventsModule,
+    FightersModule,
   ],
 })
 export class AppModule {}

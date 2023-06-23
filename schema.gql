@@ -1,0 +1,74 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Fighter {
+  """id of the fighter"""
+  fighter_id: String!
+
+  """first name of the fighter"""
+  fighter_name: String!
+
+  """nickname of the fighter"""
+  fighter_nickname: String!
+
+  """birthdate of the fighter"""
+  fighter_birthdate: DateTime!
+
+  """Nationaitly of the fighter"""
+  fighter_nationality: String!
+
+  """Weight Class of the fighter"""
+  fighter_weight_class: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  fighters: Fighter!
+  fighter(fighter_id: String!): Fighter!
+}
+
+type Mutation {
+  createFighter(createFighterInput: CreateFighterInput!): Fighter!
+  updateFighter(updateFighterInput: UpdateFighterInput!): Fighter!
+  removeFighter(fighter_id: String!): Fighter!
+}
+
+input CreateFighterInput {
+  """first name of the fighter"""
+  fighter_name: String!
+
+  """nickname of the fighter"""
+  fighter_nickname: String!
+
+  """birthdate of the fighter"""
+  fighter_birthdate: DateTime!
+
+  """Nationaitly of the fighter"""
+  fighter_nationality: String!
+
+  """Weight Class of the fighter"""
+  fighter_weight_class: String!
+}
+
+input UpdateFighterInput {
+  """first name of the fighter"""
+  fighter_name: String
+
+  """nickname of the fighter"""
+  fighter_nickname: String
+
+  """birthdate of the fighter"""
+  fighter_birthdate: DateTime
+
+  """Nationaitly of the fighter"""
+  fighter_nationality: String
+
+  """Weight Class of the fighter"""
+  fighter_weight_class: String
+  fighter_id: String!
+}
