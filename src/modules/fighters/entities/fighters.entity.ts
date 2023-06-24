@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Ranking } from 'src/modules/events - Copy/entities/ranking.entity';
+import { Ranking } from 'src/modules/ranking/entities/ranking.entity';
 import { Fights } from 'src/modules/fights/entities/fights.entity';
 import { Statistics } from 'src/modules/statistics/entities/statistics.entity';
 import {

@@ -7,7 +7,8 @@ import { FightersModule } from './modules/fighters/fighters.module';
 import { EventsModule } from './modules/events/events.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
 import { FightModule } from './modules/fights/fights.module';
-import { RankingsModule } from './modules/events - Copy/rankings.module';
+import { RankingsModule } from './modules/ranking/rankings.module';
+import { dataSourceOpttions } from 'db/data-source';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -17,16 +18,7 @@ import { RankingsModule } from './modules/events - Copy/rankings.module';
       playground: true,
       driver: ApolloDriver,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: +process.env.DB_PORT,
-      database: process.env.DB_NAME,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(dataSourceOpttions),
     EventsModule,
     FightersModule,
     StatisticsModule,
