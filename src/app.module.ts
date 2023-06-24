@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { FightersModule } from './modules/fighters/fighters.module';
 import { EventsModule } from './modules/events/events.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
+import { FightModule } from './modules/fights/fights.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -28,6 +29,7 @@ import { StatisticsModule } from './modules/statistics/statistics.module';
     EventsModule,
     FightersModule,
     StatisticsModule,
+    FightModule,
   ],
 })
 export class AppModule {}

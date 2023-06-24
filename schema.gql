@@ -2,6 +2,51 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Event {
+  """id of the fighter"""
+  event_id: String!
+
+  """event name"""
+  event_name: String!
+
+  """event date"""
+  event_date: DateTime!
+
+  """event location"""
+  event_location: String!
+
+  """How made the promotion"""
+  event_promotion: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Fights {
+  """fight id"""
+  fight_id: String!
+
+  """id of the event"""
+  event_id: String!
+
+  """Result of the fight"""
+  fight_result: String!
+
+  """Number of rounds"""
+  fight_rounds: Int!
+
+  """Duration Of fights in seconds"""
+  fight_duration: Int!
+
+  """id of the firs fighter"""
+  fighter1_id: String!
+
+  """id of the second fighter"""
+  fighter2_id: String!
+}
+
 type Statistics {
   """id of the statistics"""
   statistics_id: String!
@@ -48,28 +93,6 @@ type Fighter {
   fighter_weight_class: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type Event {
-  """id of the fighter"""
-  event_id: String!
-
-  """event name"""
-  event_name: String!
-
-  """event date"""
-  event_date: DateTime!
-
-  """event location"""
-  event_location: String!
-
-  """How made the promotion"""
-  event_promotion: String!
-}
-
 type Query {
   events: [Event!]!
   event(event_id: String!): Event!
@@ -77,6 +100,8 @@ type Query {
   fighter(fighter_id: String!): Fighter!
   statistics: [Statistics!]!
   statistic(statistics_id: String!): Statistics!
+  fights: [Fights!]!
+  fight(fights_id: String!): Fights!
 }
 
 type Mutation {
@@ -88,6 +113,9 @@ type Mutation {
   createStatistics(createStatisticsInput: CreateStatisticsInput!): Statistics!
   updateStatistics(updateStatisticsInput: UpdateStatisticsInput!): Statistics!
   removeStatistics(statistics_id: String!): Statistics!
+  createfights(createfightsInput: CreateFightsInput!): Fights!
+  updatefights(updateFightsInput: UpdateFightsInput!): Fights!
+  removefights(fights_id: String!): Fights!
 }
 
 input CreateEventInput {
@@ -193,4 +221,45 @@ input UpdateStatisticsInput {
   """total draws of the fighter"""
   decision_wins: Int
   statistics_id: String!
+}
+
+input CreateFightsInput {
+  """id of the event"""
+  event_id: String!
+
+  """Result of the fight"""
+  fight_result: String!
+
+  """Number of rounds"""
+  fight_rounds: Int!
+
+  """Duration Of fights in seconds"""
+  fight_duration: Int!
+
+  """id of the firs fighter"""
+  fighter1_id: String!
+
+  """id of the second fighter"""
+  fighter2_id: String!
+}
+
+input UpdateFightsInput {
+  """id of the event"""
+  event_id: String
+
+  """Result of the fight"""
+  fight_result: String
+
+  """Number of rounds"""
+  fight_rounds: Int
+
+  """Duration Of fights in seconds"""
+  fight_duration: Int
+
+  """id of the firs fighter"""
+  fighter1_id: String
+
+  """id of the second fighter"""
+  fighter2_id: String
+  fight_id: String!
 }

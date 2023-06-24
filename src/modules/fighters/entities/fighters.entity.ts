@@ -1,12 +1,21 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Fights } from 'src/modules/fights/entities/fights.entity';
 import { Statistics } from 'src/modules/statistics/entities/statistics.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity({ name: 'fighter' })
 @ObjectType()
 export class Fighter {
   @PrimaryGeneratedColumn('uuid')
   @OneToOne(() => Statistics, (statistic) => statistic.fighter_id)
+  @OneToMany(() => Fights, (fights) => fights.fighter1_id)
+  @OneToMany(() => Fights, (fights) => fights.fighter2_id)
   @Field(() => String, { description: 'id of the fighter' })
   fighter_id: string;
 
