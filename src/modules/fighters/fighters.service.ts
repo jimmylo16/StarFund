@@ -42,7 +42,7 @@ export class FightersService {
       ...updateUserInput,
     });
     if (!fighter) {
-      throw new NotFoundException(`User #${fighter_id} not found`);
+      throw new NotFoundException(`Fighter #${fighter_id} not found`);
     }
     return this.fighterRepository.save(fighter);
   }
@@ -50,20 +50,11 @@ export class FightersService {
   async remove(fighter_id: string) {
     const fighter = await this.findOne(fighter_id);
     if (!fighter) {
-      throw new NotFoundException(`User #${fighter_id} not found`);
+      throw new NotFoundException(`Fighter #${fighter_id} not found`);
     }
     await this.fighterRepository.remove(fighter);
     return {
       fighter_id: fighter_id,
     };
   }
-  // private handleDBExceptions(error: any) {
-  //   if (error.code === '23505') throw new BadRequestException(error.detail);
-
-  //   this.logger.error(error);
-  //   // console.log(error)
-  //   throw new InternalServerErrorException(
-  //     'Unexpected error, check server logs',
-  //   );
-  // }
 }

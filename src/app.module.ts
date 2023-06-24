@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
-// import { EventsModule } from './modules/Events/events.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { FightersModule } from './modules/fighters/fighters.module';
+import { EventsModule } from './modules/events/events.module';
+import { StatisticsModule } from './modules/statistics/statistics.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -24,8 +25,9 @@ import { FightersModule } from './modules/fighters/fighters.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    // EventsModule,
+    EventsModule,
     FightersModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}

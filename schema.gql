@@ -27,15 +27,93 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Event {
+  """id of the fighter"""
+  event_id: String!
+
+  """event name"""
+  event_name: String!
+
+  """event date"""
+  event_date: DateTime!
+
+  """event location"""
+  event_location: String!
+
+  """How made the promotion"""
+  event_promotion: String!
+}
+
+type Statistics {
+  """id of the statistics"""
+  statistics_id: String!
+
+  """total wins of the fighter"""
+  total_wins: Int!
+
+  """total losses of the fighter"""
+  total_losses: Int!
+
+  """total draws of the fighter"""
+  total_draws: Int!
+
+  """total draws of the fighter"""
+  knockout_wins: Int!
+
+  """total draws of the fighter"""
+  submission_wins: Int!
+
+  """total draws of the fighter"""
+  decision_wins: Int!
+}
+
 type Query {
+  events: Event!
+  event(event_id: String!): Event!
   fighters: Fighter!
   fighter(fighter_id: String!): Fighter!
+  statistics: Statistics!
+  statistic(statistics_id: String!): Statistics!
 }
 
 type Mutation {
+  createEvent(createEventInput: CreateEventInput!): Event!
+  updateEvent(updateEventInput: UpdateEventInput!): Event!
+  removeFighter(fighter_id: String!): Fighter!
   createFighter(createFighterInput: CreateFighterInput!): Fighter!
   updateFighter(updateFighterInput: UpdateFighterInput!): Fighter!
-  removeFighter(fighter_id: String!): Fighter!
+  createStatistics(createStatisticsInput: CreateStatisticsInput!): Statistics!
+  updateStatistics(updateStatisticsInput: UpdateStatisticsInput!): Statistics!
+  removeStatistics(statistics_id: String!): Statistics!
+}
+
+input CreateEventInput {
+  """event name"""
+  event_name: String!
+
+  """event date"""
+  event_date: DateTime!
+
+  """event location"""
+  event_location: String!
+
+  """How made the promotion"""
+  event_promotion: String!
+}
+
+input UpdateEventInput {
+  """event name"""
+  event_name: String
+
+  """event date"""
+  event_date: DateTime
+
+  """event location"""
+  event_location: String
+
+  """How made the promotion"""
+  event_promotion: String
+  event_id: String!
 }
 
 input CreateFighterInput {
@@ -71,4 +149,45 @@ input UpdateFighterInput {
   """Weight Class of the fighter"""
   fighter_weight_class: String
   fighter_id: String!
+}
+
+input CreateStatisticsInput {
+  """total wins of the fighter"""
+  total_wins: Int!
+
+  """total losses of the fighter"""
+  total_losses: Int!
+
+  """total draws of the fighter"""
+  total_draws: Int!
+
+  """total draws of the fighter"""
+  knockout_wins: Int!
+
+  """total draws of the fighter"""
+  submission_wins: Int!
+
+  """total draws of the fighter"""
+  decision_wins: Int!
+}
+
+input UpdateStatisticsInput {
+  """total wins of the fighter"""
+  total_wins: Int
+
+  """total losses of the fighter"""
+  total_losses: Int
+
+  """total draws of the fighter"""
+  total_draws: Int
+
+  """total draws of the fighter"""
+  knockout_wins: Int
+
+  """total draws of the fighter"""
+  submission_wins: Int
+
+  """total draws of the fighter"""
+  decision_wins: Int
+  statistics_id: String!
 }
