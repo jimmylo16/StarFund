@@ -2,6 +2,32 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Statistics {
+  """id of the statistics"""
+  statistics_id: String!
+
+  """Statistic of the fighter"""
+  fighter_id: String!
+
+  """total wins of the fighter"""
+  total_wins: Int!
+
+  """total losses of the fighter"""
+  total_losses: Int!
+
+  """total draws of the fighter"""
+  total_draws: Int!
+
+  """total draws of the fighter"""
+  knockout_wins: Int!
+
+  """total draws of the fighter"""
+  submission_wins: Int!
+
+  """total draws of the fighter"""
+  decision_wins: Int!
+}
+
 type Fighter {
   """id of the fighter"""
   fighter_id: String!
@@ -44,35 +70,12 @@ type Event {
   event_promotion: String!
 }
 
-type Statistics {
-  """id of the statistics"""
-  statistics_id: String!
-
-  """total wins of the fighter"""
-  total_wins: Int!
-
-  """total losses of the fighter"""
-  total_losses: Int!
-
-  """total draws of the fighter"""
-  total_draws: Int!
-
-  """total draws of the fighter"""
-  knockout_wins: Int!
-
-  """total draws of the fighter"""
-  submission_wins: Int!
-
-  """total draws of the fighter"""
-  decision_wins: Int!
-}
-
 type Query {
-  events: Event!
+  events: [Event!]!
   event(event_id: String!): Event!
-  fighters: Fighter!
+  fighters(take: Int, skip: Int): [Fighter!]!
   fighter(fighter_id: String!): Fighter!
-  statistics: Statistics!
+  statistics: [Statistics!]!
   statistic(statistics_id: String!): Statistics!
 }
 

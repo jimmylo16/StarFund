@@ -8,6 +8,10 @@ export class Statistics {
   @Field(() => String, { description: 'id of the statistics' })
   statistics_id: string;
 
+  @Column({ type: 'uuid' })
+  @Field(() => String, { description: 'Statistic of the fighter' })
+  fighter_id: string;
+
   @Column({ type: 'int' })
   @Field(() => Int, { description: 'total wins of the fighter' })
   total_wins: number;

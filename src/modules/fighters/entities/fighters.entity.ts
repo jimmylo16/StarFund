@@ -1,10 +1,12 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Statistics } from 'src/modules/statistics/entities/statistics.entity';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
 export class Fighter {
   @PrimaryGeneratedColumn('uuid')
+  @OneToOne(() => Statistics, (statistic) => statistic.fighter_id)
   @Field(() => String, { description: 'id of the fighter' })
   fighter_id: string;
 

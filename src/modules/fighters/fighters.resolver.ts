@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { FightersService } from './fighters.service';
 import { Fighter } from './entities/fighters.entity';
 import { CreateFighterInput } from './dto/create-fighters.input';
@@ -18,9 +18,12 @@ export class FightersResolver {
     return this.fightersService.create(createFighterInput);
   }
 
-  @Query(() => Fighter, { name: 'fighters' })
-  findAll() {
-    return this.fightersService.findAll();
+  @Query(() => [Fighter], { name: 'fighters' })
+  findAll(
+    @Args('take', { type: () => Int, nullable: true }) take?: number,
+    @Args('skip', { type: () => Int, nullable: true }) skip?: number,
+  ) {
+    return this.fightersService.findAll(take, skip);
   }
   @Query(() => Fighter, { name: 'fighter' })
   findOne(@Args('fighter_id', { type: () => String }) fighter_id: string) {

@@ -23,8 +23,11 @@ export class FightersService {
     const fighter = this.fighterRepository.create(createFighterInput);
     return await this.fighterRepository.save(fighter);
   }
-  async findAll() {
-    const fighters = await this.fighterRepository.find();
+  async findAll(take = 10, skip = 0) {
+    const fighters = await this.fighterRepository.find({
+      take: take,
+      skip: skip,
+    });
 
     return fighters;
   }

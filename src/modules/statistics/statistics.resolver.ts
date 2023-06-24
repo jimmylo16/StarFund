@@ -18,7 +18,7 @@ export class StatisticsResolver {
     return this.statisticsService.create(createStatisticsInput);
   }
 
-  @Query(() => Statistics, { name: 'statistics' })
+  @Query(() => [Statistics], { name: 'statistics' })
   findAll() {
     return this.statisticsService.findAll();
   }
