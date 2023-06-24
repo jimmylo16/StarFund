@@ -19,7 +19,7 @@ export class RankingService {
     });
     //Create fighterStatistic if not exist
     if (!fighterStatistics) {
-      const test = this.statisticsRepository.create({
+      this.statisticsRepository.create({
         fighter_id,
       });
     }
@@ -44,6 +44,6 @@ export class RankingService {
 
     await this.statisticsRepository.save(fighterStatistics);
     await this.rankingsRepository.save(ranking);
-    return await this.rankingsRepository.findOneBy({ fighter_id });
+    return this.rankingsRepository.findOneBy({ fighter_id });
   }
 }

@@ -4,6 +4,7 @@ import { Fights } from './entities/fights.entity';
 import { CreateFightsInput } from './dto/create-fights.input';
 import { UpdateFightsInput } from './dto/update-fights.input';
 import { FightResultScalar } from 'src/interfaces/FightResult';
+import { Ranking } from '../ranking/entities/ranking.entity';
 
 @Resolver(() => Fights)
 export class FightsResolver {
