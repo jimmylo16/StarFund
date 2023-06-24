@@ -41,7 +41,7 @@ $ npm install
 $ docker-compose up -d
 ```
 
-4. You can add autoload entities in order to create the database automatically (not recomended for production), instead you can run the following typeOrm commands to create the migration, every time that you make a change in the entities a new migration should be generated:
+4. You can add autoload entities in order to create the database automatically (not recomended for production), instead you can run the following typeOrm commands to create the migration (Just in case that you dont have the migration folder and file inside the db folder you can skip this step), every time that you make a change in the entities a new migration should be generated:
 
 ```bash
 $ npm run migration:generate db/migrations/testMigration
@@ -53,6 +53,12 @@ This will generate inside the `db/migration` folder a typescript file with all t
 
 ```bash
 $ npm run migration:run
+```
+
+In case that you already have a migration file and want to purge your db, you can use:
+
+```bash
+$ npm run migration:revert
 ```
 
 6. Running the app
