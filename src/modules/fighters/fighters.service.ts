@@ -37,11 +37,11 @@ export class FightersService {
   }
   async update(
     fighter_id: string,
-    updateUserInput: UpdateFighterInput,
+    updateFighterInput: UpdateFighterInput,
   ): Promise<Fighter> {
     const fighter = await this.fighterRepository.preload({
       fighter_id: fighter_id,
-      ...updateUserInput,
+      ...updateFighterInput,
     });
     if (!fighter) {
       throw new NotFoundException(`Fighter #${fighter_id} not found`);
