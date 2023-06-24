@@ -4,16 +4,27 @@ import { Fighter } from './entities/fighters.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateFighterInput } from './dto/update-fighters.input';
+import { Ranking } from '../ranking/entities/ranking.entity';
+import { Statistics } from '../statistics/entities/statistics.entity';
 
 @Injectable()
 export class FightersService {
   constructor(
     @InjectRepository(Fighter)
     private readonly fighterRepository: Repository<Fighter>,
+    @InjectRepository(Ranking)
+    private readonly rankingsRepository: Repository<Ranking>,
+    @InjectRepository(Ranking)
+    private readonly statisticsRepository: Repository<Statistics>,
   ) {}
 
   async create(createFighterInput: CreateFighterInput): Promise<Fighter> {
     const fighter = this.fighterRepository.create(createFighterInput);
+    const test = this.rankingsRepository.create({
+      fighter_id: fighter.fighter_id,
+    });
+    console.log(test);
+    this.statisticsRepository.create({ fighter_id: fighter.fighter_id });
     return await this.fighterRepository.save(fighter);
   }
   async findAll(take = 10, skip = 0) {
@@ -53,7 +64,4 @@ export class FightersService {
       fighter_id: fighter_id,
     };
   }
-  // async handleFightResult(fighter_id: string, result: 'win' | 'lose' | 'draw') {
-  //   await this.rankingService.updateRankingsAfterFight(fighter_id, result);
-  // }
 }

@@ -7,14 +7,16 @@ import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 export class Ranking {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String, { description: 'id of the ranking' })
-  @OneToOne(() => Fighter, (fighter) => fighter.fighter_id)
   ranking_id: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', default: 0 })
   @Field(() => Int, { description: 'Ranking position of the fighter' })
   ranking_position: number;
 
   @Column({ type: 'uuid' })
+  @OneToOne(() => Fighter, (fighter) => fighter.fighter_id, {
+    onDelete: 'CASCADE',
+  })
   @Field(() => String, { description: 'id of the fighter' })
   fighter_id: string;
 }

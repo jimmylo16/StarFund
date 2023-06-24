@@ -5,15 +5,29 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateFightsInput } from './dto/update-fights.input';
 import { UpdateFightsResultsInput } from './dto/update-fights-results.input';
+import { RankingService } from '../ranking/rankings.service';
+import { FightersService } from '../fighters/fighters.service';
+import { Fighter } from '../fighters/entities/fighters.entity';
 
 @Injectable()
 export class FightsService {
   constructor(
     @InjectRepository(Fights)
     private readonly fightsRepository: Repository<Fights>,
+    private readonly rankingService: RankingService,
+    private readonly fightersService: FightersService,
   ) {}
 
-  async create(createFightsInput: CreateFightsInput): Promise<Fights> {
+  async create(createFightsInput: CreateFightsInput) {
+    const fighter1 = await this.fightersService.findOne(
+      createFightsInput.fighter1_id,
+    );
+    const fighter2 = this.fightersService.findOne(
+      createFightsInput.fighter2_id,
+    );
+    if (!fighter1 || !fighter2) {
+      return new NotFoundException(`The fighters don't exist`);
+    }
     const Fights = this.fightsRepository.create(createFightsInput);
     return await this.fightsRepository.save(Fights);
   }
@@ -23,11 +37,17 @@ export class FightsService {
     return Fights;
   }
   async findOne(fight_id: string) {
-    const Fights = await this.fightsRepository.findOneBy({
-      fight_id,
+    const fight = await this.fightsRepository.findOne({
+      where: {
+        fight_id,
+      },
+      relations: ['fighter1_id', 'fighter2_id'],
     });
 
-    return Fights;
+    if (!fight) {
+      throw new NotFoundException(`Fight #${fight_id} not found`);
+    }
+    return fight;
   }
   async update(
     fight_id: string,
@@ -53,18 +73,28 @@ export class FightsService {
       fight_id: fight_id,
     };
   }
+  async handleFightResult(fight_id: string, result: 'win' | 'lose' | 'draw') {
+    const fighter = await this.findOne(fight_id);
+    let fighter_2_result: typeof result;
+    switch (result) {
+      case 'draw':
+        fighter_2_result = 'draw';
+        break;
+      case 'win':
+        fighter_2_result = 'lose';
+        break;
+      case 'lose':
+        fighter_2_result = 'win';
+        break;
+    }
 
-  async fightResult(
-    fight_id: string,
-    updateFightsResultsInput: UpdateFightsResultsInput,
-  ) {
-    const { fight_duration, fight_result, fight_rounds } =
-      updateFightsResultsInput;
-
-    return {
-      fight_duration,
-      fight_result,
-      fight_rounds,
-    };
+    await this.rankingService.updateRankingsAfterFight(
+      (fighter.fighter1_id as unknown as Fighter).fighter_id,
+      result,
+    );
+    await this.rankingService.updateRankingsAfterFight(
+      (fighter.fighter2_id as unknown as Fighter).fighter_id,
+      fighter_2_result,
+    );
   }
 }

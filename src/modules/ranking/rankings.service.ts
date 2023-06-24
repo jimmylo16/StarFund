@@ -20,16 +20,25 @@ export class RankingService {
     const fighterStatistics = await this.statisticsRepository.findOneBy({
       fighter_id,
     });
-
+    console.log(23, { fighterStatistics, fighter_id });
+    //Create fighterStatistic if not exist
     if (!fighterStatistics) {
-      throw new Error('Fighter statistics not found');
+      const test = this.statisticsRepository.create({
+        fighter_id,
+      });
+      console.log(test, fighter_id);
     }
 
     const ranking = await this.rankingsRepository.findOneBy({ fighter_id });
 
+    //Create fighter Ranking if not exist
     if (!ranking) {
-      throw new Error('Ranking not found');
+      this.rankingsRepository.create({
+        fighter_id,
+      });
     }
+
+    console.log({ fighterStatistics });
 
     if (result === 'win') {
       fighterStatistics.total_wins += 1;

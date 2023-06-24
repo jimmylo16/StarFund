@@ -116,6 +116,7 @@ type Mutation {
   createfights(createfightsInput: CreateFightsInput!): Fights!
   updatefights(updateFightsInput: UpdateFightsInput!): Fights!
   removefights(fights_id: String!): Fights!
+  updateFightsResults(fight_result: FightResultScalar!, fight_id: String!): Fights!
 }
 
 input CreateEventInput {
@@ -263,3 +264,6 @@ input UpdateFightsInput {
   fighter2_id: String
   fight_id: String!
 }
+
+"""Custom scalar type for FightResult"""
+scalar FightResultScalar

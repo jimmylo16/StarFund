@@ -11,7 +11,9 @@ export class Fights {
   fight_id: string;
 
   @Field(() => String, { description: 'id of the event' })
-  @ManyToOne(() => Event, (event) => event.event_id)
+  @ManyToOne(() => Event, (event) => event.event_id, {
+    onDelete: 'CASCADE',
+  })
   event_id: string;
 
   @Column({ type: 'text' })
@@ -27,10 +29,14 @@ export class Fights {
   fight_duration: number;
 
   @Field(() => String, { description: 'id of the firs fighter' })
-  @ManyToOne(() => Fighter, (fighter) => fighter.fighter_id)
+  @ManyToOne(() => Fighter, (fighter) => fighter.fighter_id, {
+    onDelete: 'CASCADE',
+  })
   fighter1_id: string;
 
   @Field(() => String, { description: 'id of the second fighter' })
-  @ManyToOne(() => Fighter, (fighter) => fighter.fighter_id)
+  @ManyToOne(() => Fighter, (fighter) => fighter.fighter_id, {
+    onDelete: 'CASCADE',
+  })
   fighter2_id: string;
 }
