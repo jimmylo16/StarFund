@@ -88,13 +88,14 @@ export class FightsService {
         break;
     }
 
-    await this.rankingService.updateRankingsAfterFight(
+    const ranking1 = await this.rankingService.updateRankingsAfterFight(
       (fighter.fighter1_id as unknown as Fighter).fighter_id,
       result,
     );
-    await this.rankingService.updateRankingsAfterFight(
+    const ranking2 = await this.rankingService.updateRankingsAfterFight(
       (fighter.fighter2_id as unknown as Fighter).fighter_id,
       fighter_2_result,
     );
+    return { ranking1, ranking2 };
   }
 }

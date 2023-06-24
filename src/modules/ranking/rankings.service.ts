@@ -13,20 +13,15 @@ export class RankingService {
     private readonly statisticsRepository: Repository<Statistics>,
   ) {}
 
-  async updateRankingsAfterFight(
-    fighter_id: string,
-    result: string,
-  ): Promise<void> {
+  async updateRankingsAfterFight(fighter_id: string, result: string) {
     const fighterStatistics = await this.statisticsRepository.findOneBy({
       fighter_id,
     });
-    console.log(23, { fighterStatistics, fighter_id });
     //Create fighterStatistic if not exist
     if (!fighterStatistics) {
       const test = this.statisticsRepository.create({
         fighter_id,
       });
-      console.log(test, fighter_id);
     }
 
     const ranking = await this.rankingsRepository.findOneBy({ fighter_id });
@@ -37,8 +32,6 @@ export class RankingService {
         fighter_id,
       });
     }
-
-    console.log({ fighterStatistics });
 
     if (result === 'win') {
       fighterStatistics.total_wins += 1;
@@ -51,5 +44,6 @@ export class RankingService {
 
     await this.statisticsRepository.save(fighterStatistics);
     await this.rankingsRepository.save(ranking);
+    return await this.rankingsRepository.findOneBy({ fighter_id });
   }
 }

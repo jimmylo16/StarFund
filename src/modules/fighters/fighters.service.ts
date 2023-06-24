@@ -14,18 +14,22 @@ export class FightersService {
     private readonly fighterRepository: Repository<Fighter>,
     @InjectRepository(Ranking)
     private readonly rankingsRepository: Repository<Ranking>,
-    @InjectRepository(Ranking)
+    @InjectRepository(Statistics)
     private readonly statisticsRepository: Repository<Statistics>,
   ) {}
 
   async create(createFighterInput: CreateFighterInput): Promise<Fighter> {
     const fighter = this.fighterRepository.create(createFighterInput);
-    const test = this.rankingsRepository.create({
+    await this.fighterRepository.save(fighter);
+    const ranking = this.rankingsRepository.create({
       fighter_id: fighter.fighter_id,
     });
-    console.log(test);
-    this.statisticsRepository.create({ fighter_id: fighter.fighter_id });
-    return await this.fighterRepository.save(fighter);
+    await this.rankingsRepository.save(ranking);
+    const statistics = this.statisticsRepository.create({
+      fighter_id: fighter.fighter_id,
+    });
+    await this.statisticsRepository.save(statistics);
+    return fighter;
   }
   async findAll(take = 10, skip = 0) {
     const fighters = await this.fighterRepository.find({
