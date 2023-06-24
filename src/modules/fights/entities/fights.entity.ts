@@ -14,9 +14,9 @@ export class Fights {
   @ManyToOne(() => Event, (event) => event.event_id)
   event_id: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'text' })
   @Field(() => String, { description: 'Result of the fight' })
-  fight_result: string;
+  fight_result: 'win' | 'lose' | 'draw';
 
   @Column({ type: 'int' })
   @Field(() => Int, { description: 'Number of rounds' })

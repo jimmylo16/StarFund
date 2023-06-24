@@ -8,7 +8,7 @@ export class CreateFightsInput {
   event_id: string;
 
   @Field(() => String, { description: 'Result of the fight' })
-  fight_result: string;
+  fight_result: 'win' | 'lose' | 'draw';
 
   @Field(() => Int, { description: 'Number of rounds' })
   fight_rounds: number;
