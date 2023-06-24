@@ -9,7 +9,6 @@ import { CreateFighterInput } from './dto/create-fighters.input';
 import { Fighter } from './entities/fighters.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Targs } from './fighters.resolver';
 import { UpdateFighterInput } from './dto/update-fighters.input';
 
 @Injectable()

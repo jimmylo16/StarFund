@@ -4,9 +4,6 @@ import { Fighter } from './entities/fighters.entity';
 import { CreateFighterInput } from './dto/create-fighters.input';
 import { UpdateFighterInput } from './dto/update-fighters.input';
 
-export type Targs = {
-  test: string;
-};
 @Resolver(() => Fighter)
 export class FightersResolver {
   constructor(private readonly fightersService: FightersService) {}

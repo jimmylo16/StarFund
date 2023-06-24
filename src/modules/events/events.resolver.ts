@@ -4,9 +4,6 @@ import { Event } from './entities/event.entity';
 import { CreateEventInput } from './dto/create-events.input';
 import { UpdateEventInput } from './dto/update-events.input';
 
-export type Targs = {
-  test: string;
-};
 @Resolver(() => Event)
 export class EventsResolver {
   constructor(private readonly eventsService: EventsService) {}

@@ -4,9 +4,6 @@ import { Statistics } from './entities/statistics.entity';
 import { CreateStatisticsInput } from './dto/create-statistics.input';
 import { UpdateStatisticsInput } from './dto/update-statistics.input';
 
-export type Targs = {
-  test: string;
-};
 @Resolver(() => Statistics)
 export class StatisticsResolver {
   constructor(private readonly statisticsService: StatisticsService) {}
