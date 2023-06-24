@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Ranking } from 'src/modules/events - Copy/entities/ranking.entity';
 import { Fights } from 'src/modules/fights/entities/fights.entity';
 import { Statistics } from 'src/modules/statistics/entities/statistics.entity';
 import {
@@ -14,6 +15,7 @@ import {
 export class Fighter {
   @PrimaryGeneratedColumn('uuid')
   @OneToOne(() => Statistics, (statistic) => statistic.fighter_id)
+  @OneToOne(() => Ranking, (ranking) => ranking.fighter_id)
   @OneToMany(() => Fights, (fights) => fights.fighter1_id)
   @OneToMany(() => Fights, (fights) => fights.fighter2_id)
   @Field(() => String, { description: 'id of the fighter' })
@@ -23,7 +25,7 @@ export class Fighter {
   @Field(() => String, { description: 'first name of the fighter' })
   fighter_name: string;
 
-  @Column()
+  @Column({ type: 'text', unique: true })
   @Field(() => String, { description: 'nickname of the fighter' })
   fighter_nickname: string;
 
