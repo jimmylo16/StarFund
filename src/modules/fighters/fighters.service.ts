@@ -1,10 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFighterInput } from './dto/create-fighters.input';
 import { Fighter } from './entities/fighters.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -59,4 +53,7 @@ export class FightersService {
       fighter_id: fighter_id,
     };
   }
+  // async handleFightResult(fighter_id: string, result: 'win' | 'lose' | 'draw') {
+  //   await this.rankingService.updateRankingsAfterFight(fighter_id, result);
+  // }
 }
