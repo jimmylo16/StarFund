@@ -7,6 +7,7 @@ import { FightersModule } from './modules/fighters/fighters.module';
 import { EventsModule } from './modules/events/events.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
 import { FightModule } from './modules/fights/fights.module';
+import { RankingsModule } from './modules/events - Copy/rankings.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -30,6 +31,7 @@ import { FightModule } from './modules/fights/fights.module';
     FightersModule,
     StatisticsModule,
     FightModule,
+    RankingsModule,
   ],
 })
 export class AppModule {}

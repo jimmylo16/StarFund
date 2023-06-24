@@ -4,6 +4,7 @@ import { Fights } from './entities/Fights.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateFightsInput } from './dto/update-fights.input';
+import { UpdateFightsResultsInput } from './dto/update-fights-results.input';
 
 @Injectable()
 export class FightsService {
@@ -50,6 +51,20 @@ export class FightsService {
     await this.fightsRepository.remove(fights);
     return {
       fight_id: fight_id,
+    };
+  }
+
+  async fightResult(
+    fight_id: string,
+    updateFightsResultsInput: UpdateFightsResultsInput,
+  ) {
+    const { fight_duration, fight_result, fight_rounds } =
+      updateFightsResultsInput;
+
+    return {
+      fight_duration,
+      fight_result,
+      fight_rounds,
     };
   }
 }
